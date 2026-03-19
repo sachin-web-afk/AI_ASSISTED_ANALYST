@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Based Analyst</title>
+    <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+</head>
+
+<body>
+
+<h1>AI Based Analyst</h1>
+
+<h2>Ask Question</h2>
+<input id="question" placeholder="Ask about your data">
+<button onclick="ask()">Ask</button>
+
+<h2>AI Insight</h2>
+<p id="analysis"></p>
+
+<div id="chart"></div>
+
+<script>
+
+async function ask() {
+
+    const q = document.getElementById("question").value;
+
+    const res = await fetch("http://127.0.0.1:8000/query", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({question: q})
+    });
+
+    const data = await res.json();
+
+    document.getElementById("analysis").innerText = data.analysis || "No data";
+
+    document.getElementById("chart").innerHTML = "";
+
+    if (data.chart) {
+        vegaEmbed("#chart", data.chart);
+    }
+}
+
+</script>
+
+</body>
+</html>
