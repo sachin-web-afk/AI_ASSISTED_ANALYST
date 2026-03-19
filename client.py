@@ -1,7 +1,7 @@
 import asyncio
 from fastmcp import Client
 
-MCP_URL = "http://127.0.0.1:10000/mcp"
+MCP_URL = "http://127.0.0.0:10000/mcp"
 
 
 async def main():
