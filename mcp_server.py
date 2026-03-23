@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from pydantic import BaseModel, Field
+import os
 
 from agent import Agent
 from chart_service import generate_chart
@@ -77,10 +78,14 @@ def query(question:str):
             "chart": None
         }
 
+
+
+
 if __name__ == "__main__":
     mcp.run(
         transport="streamable-http",
-        host="127.0.0.0",
-        port=10000,
+        host="0.0.0.0", 
+        port=int(os.environ.get("PORT", 10000)),  \
         path="/mcp"
     )
+    

@@ -3,9 +3,7 @@ from fastapi import FastAPI
 app = FastAPI()
 
 
-# -----------------------------
-# SQL GENERATION PROMPT
-# -----------------------------
+
 @app.get("/prompts/sql")
 def sql_prompt():
     return {
